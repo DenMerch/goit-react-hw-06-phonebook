@@ -1,15 +1,34 @@
 import { useState } from "react";
 import css from './Forms.module.css'
+import { useDispatch, useSelector } from "react-redux";
+import { addContact } from "redux/contactsSlice";
+import Notiflix from "notiflix";
 export const ContactForm = (props) => {
+    const contacts = useSelector(state => state.contacts)
+    const dispatch = useDispatch();
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
     const handleInput = e => {
         if (e.target.name === 'name') setName(e.target.value)
         else if (e.target.name === 'number') setNumber(e.target.value)
     }
+    const handleSubmit = (name, number) => {
+
+        const isNamePresent = contacts.find(el => el.name === name);
+        if (isNamePresent) {
+            return alert(name)
+        } else {
+            dispatch(addContact(name, number))
+
+        }
+
+    };
+    const alert = (name) => {
+        return Notiflix.Notify.failure(`${name} is alredy in contacts`)
+    }
     const handBtnSubmit = e => {
         e.preventDefault()
-        props.handleSubmit(name, number)
+        handleSubmit(name, number)
         reset()
     }
     const reset = () => {

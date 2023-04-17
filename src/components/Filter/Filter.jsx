@@ -1,13 +1,21 @@
-export const Filter = ({ filter, input }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { filterContacts } from "redux/filterSlice";
 
+export const Filter = () => {
+    const dispatch = useDispatch();
+    const filter = useSelector(state => state.filter)
+    const handleInput = e => {
+        const value = e.target.value
+        dispatch(filterContacts(value))
 
+    };
     return (
         <>
 
             <p>Find contacts by name</p>
             <label htmlFor="filter" className="form-label">Name</label>
             <input
-                onChange={input}
+                onChange={handleInput}
                 value={filter}
 
                 id="filter"
