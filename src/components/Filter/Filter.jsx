@@ -1,5 +1,5 @@
+export const Filter = ({ filter, input }) => {
 
-export const Filter = ({ findName, filter }) => {
 
     return (
         <>
@@ -7,8 +7,9 @@ export const Filter = ({ findName, filter }) => {
             <p>Find contacts by name</p>
             <label htmlFor="filter" className="form-label">Name</label>
             <input
-                onChange={findName}
+                onChange={input}
                 value={filter}
+
                 id="filter"
                 type="text"
                 name="filter"
